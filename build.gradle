@@ -30,6 +30,12 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/AikusoniTradeSystem/packages")
+        credentials {
+            // gpr.user: github 사용자명
+            // gpr.token: github Personal access token
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+            password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+        }
     }
 }
 
