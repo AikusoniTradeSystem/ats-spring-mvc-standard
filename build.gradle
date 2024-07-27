@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'io.github.aikusonitradesystem'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 
 java {
     toolchain {
@@ -62,7 +62,7 @@ publishing {
 
 dependencies {
 
-    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.0.1-SNAPSHOT'
+    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.0.2'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
