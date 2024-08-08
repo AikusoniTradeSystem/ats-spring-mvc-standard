@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -41,6 +42,19 @@ public class ATSResponseBody<T> {
         return ResponseEntity.status(httpStatusCode)
                 .headers(getHttpHeaders())
                 .body(this);
+    }
+
+    public ATSResponseBody<T> headers(Map<String, String> headers) {
+        this.headers = headers;
+        return this;
+    }
+
+    public ATSResponseBody<T> addHeader(String key, String value) {
+        if (this.headers == null) {
+            this.headers = new HashMap<>();
+        }
+        this.headers.put(key, value);
+        return this;
     }
 
     private HttpHeaders getHttpHeaders() {
