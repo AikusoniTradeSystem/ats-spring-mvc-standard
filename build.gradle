@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'io.github.aikusonitradesystem'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.2-SNAPSHOT-2'
 
 java {
     toolchain {
