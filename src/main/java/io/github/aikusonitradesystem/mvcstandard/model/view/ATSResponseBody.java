@@ -3,8 +3,10 @@ package io.github.aikusonitradesystem.mvcstandard.model.view;
 
 import io.github.aikusonitradesystem.core.common.BaseErrorCode;
 import io.github.aikusonitradesystem.core.constants.ErrorCode;
+import io.github.aikusonitradesystem.core.constants.NoticeLevel;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
@@ -22,15 +24,31 @@ public class ATSResponseBody<T> {
     private Map<String, Object> errorDetail;
     // 실제 데이터를 담는다.
     private T data;
+    // notice의 레벨
+    private String noticeLevel = NoticeLevel.INFO;
     // API를 호출하는 시스템에 알려줄 부가 정보를 넣는다. (예: API 지원이 2099.12.31에 끝남을 안내)
     private String notice;
+    // 응답 헤더를 넣는다.
+    private Map<String, String> headers;
 
     public ResponseEntity<ATSResponseBody<T>> toResponseEntity() {
-        return ResponseEntity.status(errorCode.getStatusCode()).body(this);
+        return ResponseEntity.status(errorCode.getStatusCode())
+                .headers(getHttpHeaders())
+                .body(this);
     }
 
     public ResponseEntity<ATSResponseBody<T>> toResponseEntity(int httpStatusCode) {
-        return ResponseEntity.status(httpStatusCode).body(this);
+        return ResponseEntity.status(httpStatusCode)
+                .headers(getHttpHeaders())
+                .body(this);
+    }
+
+    private HttpHeaders getHttpHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        if (this.headers != null) {
+            headers.setAll(this.headers);
+        }
+        return headers;
     }
 
     public static <T> ATSResponseBody<T> ok(T data, String message) {

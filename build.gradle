@@ -62,7 +62,7 @@ publishing {
 
 dependencies {
 
-    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.0.2'
+    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.0.2-SNAPSHOT'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
