@@ -1,6 +1,7 @@
 package io.github.aikusonitradesystem.mvcstandard.model.view;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.aikusonitradesystem.core.common.BaseErrorCode;
 import io.github.aikusonitradesystem.core.constants.ErrorCode;
 import io.github.aikusonitradesystem.core.constants.NoticeLevel;
@@ -29,7 +30,9 @@ public class ATSResponseBody<T> {
     private String noticeLevel = NoticeLevel.INFO;
     // API를 호출하는 시스템에 알려줄 부가 정보를 넣는다. (예: API 지원이 2099.12.31에 끝남을 안내)
     private String notice;
+
     // 응답 헤더를 넣는다.
+    @JsonIgnore
     private Map<String, String> headers;
 
     public ResponseEntity<ATSResponseBody<T>> toResponseEntity() {
