@@ -1,4 +1,4 @@
-# ats-spring-mvc-standard
+# ats-spring-mvc-standard (will be deprecated)
 > This repository will be deprecated.
 > The source code will be merged into [ats-spring-core](https://github.com/AikusoniTradeSystem/ats-spring-core).
 
