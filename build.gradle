@@ -49,7 +49,7 @@ publishing {
         maven {
             // packages 레포에 배포
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/AikusoniTradeSystem/ats-spring-mvc-standard")
+            url = uri("https://maven.pkg.github.com/AikusoniTradeSystem/packages")
             credentials {
                 // gpr.user: github 사용자명
                 // gpr.token: github Personal access token
@@ -62,7 +62,7 @@ publishing {
 
 dependencies {
 
-    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.1.3'
+    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.1.6'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
