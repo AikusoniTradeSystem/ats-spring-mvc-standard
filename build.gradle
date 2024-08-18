@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'io.github.aikusonitradesystem'
-version = '0.0.3'
+version = System.getenv("GITHUB_TAG") ?: "0.0.1-SNAPSHOT"
 
 java {
     toolchain {
@@ -49,7 +49,7 @@ publishing {
         maven {
             // packages 레포에 배포
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/AikusoniTradeSystem/packages")
+            url = uri("https://maven.pkg.github.com/AikusoniTradeSystem/ats-spring-mvc-standard")
             credentials {
                 // gpr.user: github 사용자명
                 // gpr.token: github Personal access token
@@ -62,7 +62,7 @@ publishing {
 
 dependencies {
 
-    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.0.2-SNAPSHOT'
+    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.1.3'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
