@@ -4,14 +4,23 @@ import io.github.aikusonitradesystem.core.constants.ErrorCode;
 import io.github.aikusonitradesystem.core.exception.ATSException;
 import io.github.aikusonitradesystem.core.exception.ATSRuntimeException;
 import io.github.aikusonitradesystem.mvcstandard.model.view.ATSResponseBody;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class RestExceptionHandler {
+@RequiredArgsConstructor
+public class RestExceptionHandler implements Ordered {
+    private final CheckRoleAdvice roleCheckAdvice;
+
+    @Override
+    public int getOrder() {
+        return roleCheckAdvice.getOrder() - 1;
+    }
 
     @ExceptionHandler(ATSRuntimeException.class)
     public ResponseEntity<ATSResponseBody<Void>> handle(ATSRuntimeException exception) {
