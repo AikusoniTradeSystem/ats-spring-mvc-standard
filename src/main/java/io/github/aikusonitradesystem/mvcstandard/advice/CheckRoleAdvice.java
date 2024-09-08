@@ -3,6 +3,7 @@ package io.github.aikusonitradesystem.mvcstandard.advice;
 import io.github.aikusonitradesystem.core.constants.ErrorCode;
 import io.github.aikusonitradesystem.core.exception.ATSRuntimeException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,6 +14,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
 
+import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
+
+@Slf4j
 @Aspect
 @Component
 public class CheckRoleAdvice implements Ordered {
@@ -25,25 +29,25 @@ public class CheckRoleAdvice implements Ordered {
     public void checkRole(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000001", "RequestAttributes가 존재하지 않습니다.");
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000001", m("mvc.no_request_attributes"));
         }
 
         HttpServletRequest request = attributes.getRequest();
         String roles = request.getHeader("X-Roles");
 
         if (roles == null) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000002", "권한이 설정되지 않은 계정으로 접근 했습니다.");
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000002", m("mvc.no_roles"));
         }
 
         Method method = getMethodFromJoinPoint(joinPoint);
         CheckRole checkRole = method.getAnnotation(CheckRole.class);
         if (checkRole == null) {
-            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000004", "서버 오류로 인해 권한 체크에 실패했습니다. 관리자에게 문의하세요.");
+            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000004", m("mvc.failed_to_access_server_error"));
         }
 
         String requiredRole = checkRole.value();
         if (!roles.contains(requiredRole)) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000003", "권한이 없는 계정으로 접근 했습니다.");
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000003", m("mvc.no_permission"));
         }
     }
 
@@ -57,7 +61,7 @@ public class CheckRoleAdvice implements Ordered {
             Class<?>[] parameterTypes = methodSignature.getParameterTypes();
             method = targetClass.getMethod(methodSignature.getName(), parameterTypes);
         } catch (NoSuchMethodException e) {
-            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000005", "서버 오류로 인해 권한 체크에 실패했습니다. 관리자에게 문의하세요.");
+            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000005", m("mvc.failed_to_access_server_error"));
         }
         return method;
     }

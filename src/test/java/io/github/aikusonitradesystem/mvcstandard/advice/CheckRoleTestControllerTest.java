@@ -1,5 +1,7 @@
 package io.github.aikusonitradesystem.mvcstandard.advice;
 
+import io.github.aikusonitradesystem.core.config.MessageConfig;
+import io.github.aikusonitradesystem.mvcstandard.config.LocaleConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -11,13 +13,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Locale;
+
+import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 @WebMvcTest(controllers = CheckRoleTestController.class)
-@Import({AopAutoConfiguration.class, CheckRoleAdvice.class, RestExceptionHandler.class})
+@Import({AopAutoConfiguration.class, CheckRoleAdvice.class, RestExceptionHandler.class, MessageConfig.class, LocaleConfig.class})
 @ContextConfiguration(classes = {CheckRoleTestController.class})
 public class CheckRoleTestControllerTest {
     @Autowired
@@ -34,11 +39,12 @@ public class CheckRoleTestControllerTest {
         mockMvc.perform(
                         get("/check-role/admin")
                                 .header("X-Roles", "ADMIN")
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
                                 .accept("application/json")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("OK"))
-                .andExpect(jsonPath("$.message").value("관리자 권한으로 접근 했습니다."));
+                .andExpect(jsonPath("$.message").value(m("mvc.admin_permission")));
     }
 
     @Test
@@ -47,12 +53,13 @@ public class CheckRoleTestControllerTest {
         mockMvc.perform(
                         get("/check-role/user")
                                 .header("X-Roles", "ADMIN")
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
                                 .accept("application/json")
                 )
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000003"))
-                .andExpect(jsonPath("$.message").value("권한이 없는 계정으로 접근 했습니다."));
+                .andExpect(jsonPath("$.message").value(m("mvc.no_permission")));
     }
 
     @Test
@@ -61,11 +68,13 @@ public class CheckRoleTestControllerTest {
         mockMvc.perform(
                         get("/check-role/admin")
                                 .header("X-Roles", "USER")
-                                .accept("application/json"))
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
+                                .accept("application/json")
+                )
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000003"))
-                .andExpect(jsonPath("$.message").value("권한이 없는 계정으로 접근 했습니다."));
+                .andExpect(jsonPath("$.message").value(m("mvc.no_permission")));
     }
 
     @Test
@@ -74,10 +83,11 @@ public class CheckRoleTestControllerTest {
         mockMvc.perform(
                         get("/check-role/user")
                                 .header("X-Roles", "USER")
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
                                 .accept("application/json")
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value("일반 사용자 권한으로 접근 했습니다."));
+                .andExpect(jsonPath("$.data").value(m("mvc.user_permission")));
     }
 
     @Test
@@ -85,11 +95,12 @@ public class CheckRoleTestControllerTest {
     void anonymous() throws Exception {
         mockMvc.perform(
                         get("/check-role/admin")
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
                                 .accept("application/json")
                 )
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000002"))
-                .andExpect(jsonPath("$.message").value("권한이 설정되지 않은 계정으로 접근 했습니다."));
+                .andExpect(jsonPath("$.message").value(m("mvc.no_roles")));
     }
 }
