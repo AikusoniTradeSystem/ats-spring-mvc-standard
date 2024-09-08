@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
@@ -35,28 +36,17 @@ public class LocaleConfigTest {
     }
 
     @Test
-    @DisplayName("영어 로케일 테스트")
-    void english() throws Exception {
-        mockMvc.perform(
-                        get("/locale-config/test")
-                                .header("Accept-Language", Locale.ENGLISH.toLanguageTag())
-                                .accept("application/json")
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value("OK"))
-                .andExpect(jsonPath("$.message").value(m("mvc.locale_config_test", null, Locale.ENGLISH)));
-    }
-
-    @Test
-    @DisplayName("한국어 로케일 테스트")
-    void korean() throws Exception {
-        mockMvc.perform(
-                        get("/locale-config/test")
-                                .header("Accept-Language", Locale.KOREAN.toLanguageTag())
-                                .accept("application/json")
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value("OK"))
-                .andExpect(jsonPath("$.message").value(m("mvc.locale_config_test", null, Locale.KOREAN)));
+    @DisplayName("")
+    void test() throws Exception {
+        for (var locale : Locale.getAvailableLocales()) {
+            mockMvc.perform(
+                            get("/locale-config/test")
+                                    .header("Accept-Language", locale.toLanguageTag())
+                                    .accept("application/json")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.data").value("OK"))
+                    .andExpect(jsonPath("$.message").value(m("mvc.locale_config_test", null, locale)));
+        }
     }
 }
