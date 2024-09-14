@@ -48,7 +48,7 @@ jobs:
         run: ls -la mvcstandard/build/libs/
 
       - name: Publish to GitHub Packages
-        run: ./gradlew :mvcstandrad:publish
+        run: ./gradlew :mvcstandard:publish
         env:
           GITHUB_USERNAME: ${{ secrets.PACKAGE_PUBLISH_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
