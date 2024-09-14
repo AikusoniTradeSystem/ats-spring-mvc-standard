@@ -1,8 +1,8 @@
 package io.github.aikusoni.ats.spring.mvcstandard.model.view;
 
 import io.github.aikusoni.ats.spring.core.config.MessageConfig;
+import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
 import io.github.aikusoni.ats.spring.mvcstandard.config.LocaleConfig;
-import io.github.aikusoni.ats.spring.mvcstandard.config.LocaleConfigTestController;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Locale;
 
-import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode.LOCALE_CONFIG_TEST;
 import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode.WITH_MESSAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -55,6 +54,19 @@ public class AtsResponseBodyTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("OK"))
+                .andExpect(jsonPath("$.message").value(WITH_MESSAGE.getMessage(Locale.getDefault())));
+    }
+
+    @Test
+    @DisplayName("메시지 있는 에러 응답 테스트")
+    void withMessageError() throws Exception {
+        mockMvc.perform(
+                        get("/ats-response-body/with-message-error")
+                                .header("Accept-Language", Locale.getDefault().toLanguageTag())
+                                .accept("application/json")
+                )
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.errorCode").value(ErrorCode.INTERNAL_SERVER_ERROR.name()))
                 .andExpect(jsonPath("$.message").value(WITH_MESSAGE.getMessage(Locale.getDefault())));
     }
 }

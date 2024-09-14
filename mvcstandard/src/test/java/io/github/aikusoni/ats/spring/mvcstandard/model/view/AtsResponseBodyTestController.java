@@ -1,5 +1,6 @@
 package io.github.aikusoni.ats.spring.mvcstandard.model.view;
 
+import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,12 @@ public class AtsResponseBodyTestController {
     @RequestMapping(method = {POST, GET}, path = "/with-message-ok", produces = "application/json")
     public ResponseEntity<ATSResponseBody<String>> withMessageOk() {
         return ATSResponseBody.ok("OK", WITH_MESSAGE)
+                .toResponseEntity();
+    }
+
+    @RequestMapping(method = {POST, GET}, path = "/with-message-error", produces = "application/json")
+    public ResponseEntity<ATSResponseBody<Void>> withMessageError() {
+        return ATSResponseBody.<Void>error(ErrorCode.INTERNAL_SERVER_ERROR,"ART-0000001", WITH_MESSAGE)
                 .toResponseEntity();
     }
 }

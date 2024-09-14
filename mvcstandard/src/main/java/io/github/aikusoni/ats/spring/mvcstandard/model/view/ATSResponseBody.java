@@ -94,8 +94,16 @@ public class ATSResponseBody<T> {
                 .build();
     }
 
+    public static <T> ATSResponseBody<T> error(BaseErrorCode errorCode, String errorAlias, MessageCode messageCode) {
+        return error(errorCode, errorAlias, messageCode.getMessage());
+    }
+
     public static <T> ATSResponseBody<T> error(BaseErrorCode errorCode, String errorAlias, String message) {
         return error(errorCode, errorAlias, message, null);
+    }
+
+    public static <T> ATSResponseBody<T> error(BaseErrorCode errorCode, String errorAlias, MessageCode messageCode, Map<String, Object> errorDetail) {
+        return error(errorCode, errorAlias, messageCode.getMessage(), errorDetail);
     }
 
     public static <T> ATSResponseBody<T> error(BaseErrorCode errorCode, String errorAlias, String message, Map<String, Object> errorDetail) {
