@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class LocaleConfigTestController {
     @RequestMapping(method = {POST, GET}, path = "/test", produces = "application/json")
     public ResponseEntity<ATSResponseBody<String>> test() {
-        return ATSResponseBody.ok("OK", LOCALE_CONFIG_TEST.getMessage())
+        return ATSResponseBody.ok("OK", LOCALE_CONFIG_TEST)
                 .toResponseEntity();
     }
 }

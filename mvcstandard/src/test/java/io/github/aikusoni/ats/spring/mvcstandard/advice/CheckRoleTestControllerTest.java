@@ -2,8 +2,6 @@ package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
 import io.github.aikusoni.ats.spring.core.config.MessageConfig;
 import io.github.aikusoni.ats.spring.mvcstandard.config.LocaleConfig;
-import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcMessageCode;
-import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -90,7 +88,8 @@ public class CheckRoleTestControllerTest {
                                 .accept("application/json")
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value(USER_PERMISSION.getMessage()));
+                .andExpect(jsonPath("$.data").value("OK"))
+                .andExpect(jsonPath("$.message").value(USER_PERMISSION.getMessage()));
     }
 
     @Test

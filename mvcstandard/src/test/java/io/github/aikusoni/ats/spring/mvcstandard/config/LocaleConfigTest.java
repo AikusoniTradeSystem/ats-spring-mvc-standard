@@ -32,7 +32,7 @@ public class LocaleConfigTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("입력 로케일에 맞게 응답 메시지가 반환되는지 테스트")
     void test() throws Exception {
         for (var locale : Locale.getAvailableLocales()) {
             mockMvc.perform(

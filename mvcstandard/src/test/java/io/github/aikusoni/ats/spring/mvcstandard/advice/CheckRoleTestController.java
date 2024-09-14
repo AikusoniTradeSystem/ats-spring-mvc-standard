@@ -17,14 +17,14 @@ public class CheckRoleTestController {
     @CheckRole("ADMIN")
     @RequestMapping(method = {POST, GET}, path = "/admin", produces = "application/json")
     public ResponseEntity<ATSResponseBody<String>> admin() {
-        return ATSResponseBody.ok("OK", ADMIN_PERMISSION.getMessage())
+        return ATSResponseBody.ok("OK", ADMIN_PERMISSION)
                 .toResponseEntity();
     }
 
     @CheckRole("USER")
     @RequestMapping(method = {POST, GET}, path = "/user", produces = "application/json")
     public ResponseEntity<ATSResponseBody<String>> user() {
-        return ATSResponseBody.ok(USER_PERMISSION.getMessage())
+        return ATSResponseBody.ok("OK", USER_PERMISSION.getMessage())
                 .toResponseEntity();
     }
 }

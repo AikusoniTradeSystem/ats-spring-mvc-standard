@@ -3,6 +3,7 @@ package io.github.aikusoni.ats.spring.mvcstandard.model.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.aikusoni.ats.spring.core.common.BaseErrorCode;
+import io.github.aikusoni.ats.spring.core.common.MessageCode;
 import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
 import io.github.aikusoni.ats.spring.core.constants.NoticeLevel;
 import lombok.Builder;
@@ -69,12 +70,20 @@ public class ATSResponseBody<T> {
         return headers;
     }
 
+    public static <T> ATSResponseBody<T> ok(T data, MessageCode messageCode) {
+        return of(ErrorCode.NO_ERROR, data, messageCode.getMessage());
+    }
+
     public static <T> ATSResponseBody<T> ok(T data, String message) {
         return of(ErrorCode.NO_ERROR, data, message);
     }
 
     public static <T> ATSResponseBody<T> ok(T data) {
-        return of(ErrorCode.NO_ERROR, data, null);
+        return of(ErrorCode.NO_ERROR, data, (String)null);
+    }
+
+    public static <T> ATSResponseBody<T> of(BaseErrorCode errorCode, T data, MessageCode messageCode) {
+        return of(errorCode, data, messageCode.getMessage());
     }
 
     public static <T> ATSResponseBody<T> of(BaseErrorCode errorCode, T data, String message) {
