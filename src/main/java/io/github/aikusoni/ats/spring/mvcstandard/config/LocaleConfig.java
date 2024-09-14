@@ -1,4 +1,4 @@
-package io.github.aikusonitradesystem.mvcstandard.config;
+package io.github.aikusoni.ats.spring.mvcstandard.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

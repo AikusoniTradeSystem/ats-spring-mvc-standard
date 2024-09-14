@@ -7,7 +7,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'io.github.aikusonitradesystem'
+group = 'io.github.aikusoni.ats.spring'
 version = System.getenv("GITHUB_TAG") ?: "0.0.1-SNAPSHOT"
 
 java {
@@ -71,14 +71,14 @@ publishing {
 
 dependencies {
     constraints {
-        implementation('io.github.aikusonitradesystem:ats-spring-core') {
+        implementation('io.github.aikusoni.ats.spring:core') {
             version {
-                require '[0.1.11,)'
+                require '[0.1.15,)'
             }
         }
     }
 
-    implementation 'io.github.aikusonitradesystem:ats-spring-core:0.1.11'
+    implementation 'io.github.aikusoni.ats.spring:core:0.1.15'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'

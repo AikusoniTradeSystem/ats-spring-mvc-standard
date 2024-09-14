@@ -1,7 +1,9 @@
-package io.github.aikusonitradesystem.mvcstandard.advice;
+package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusonitradesystem.core.config.MessageConfig;
-import io.github.aikusonitradesystem.mvcstandard.config.LocaleConfig;
+import io.github.aikusoni.ats.core.config.MessageConfig;
+import io.github.aikusoni.ats.spring.mvcstandard.config.LocaleConfig;
+import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcMessageCode;
+import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Locale;
 
-import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
+import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcMessageCode.*;
+import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,7 +47,7 @@ public class CheckRoleTestControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("OK"))
-                .andExpect(jsonPath("$.message").value(m("mvc.admin_permission")));
+                .andExpect(jsonPath("$.message").value(ADMIN_PERMISSION.getMessage()));
     }
 
     @Test
@@ -59,7 +62,7 @@ public class CheckRoleTestControllerTest {
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000003"))
-                .andExpect(jsonPath("$.message").value(m("mvc.no_permission")));
+                .andExpect(jsonPath("$.message").value(NO_PERMISSION.getMessage()));
     }
 
     @Test
@@ -74,7 +77,7 @@ public class CheckRoleTestControllerTest {
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000003"))
-                .andExpect(jsonPath("$.message").value(m("mvc.no_permission")));
+                .andExpect(jsonPath("$.message").value(NO_PERMISSION.getMessage()));
     }
 
     @Test
@@ -87,7 +90,7 @@ public class CheckRoleTestControllerTest {
                                 .accept("application/json")
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value(m("mvc.user_permission")));
+                .andExpect(jsonPath("$.data").value(USER_PERMISSION.getMessage()));
     }
 
     @Test
@@ -101,6 +104,6 @@ public class CheckRoleTestControllerTest {
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorCode").value("FORBIDDEN"))
                 .andExpect(jsonPath("$.errorAlias").value("RCA-000002"))
-                .andExpect(jsonPath("$.message").value(m("mvc.no_roles")));
+                .andExpect(jsonPath("$.message").value(NO_ROLES.getMessage()));
     }
 }

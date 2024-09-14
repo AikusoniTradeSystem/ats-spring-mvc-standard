@@ -1,9 +1,9 @@
-package io.github.aikusonitradesystem.mvcstandard.advice;
+package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusonitradesystem.core.constants.ErrorCode;
-import io.github.aikusonitradesystem.core.exception.ATSException;
-import io.github.aikusonitradesystem.core.exception.ATSRuntimeException;
-import io.github.aikusonitradesystem.mvcstandard.model.view.ATSResponseBody;
+import io.github.aikusoni.ats.core.constants.ErrorCode;
+import io.github.aikusoni.ats.core.exception.ATSException;
+import io.github.aikusoni.ats.core.exception.ATSRuntimeException;
+import io.github.aikusoni.ats.spring.mvcstandard.model.view.ATSResponseBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;

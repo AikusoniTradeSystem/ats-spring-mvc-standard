@@ -1,4 +1,4 @@
-package io.github.aikusonitradesystem.mvcstandard.advice;
+package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

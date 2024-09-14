@@ -1,23 +1,19 @@
-package io.github.aikusonitradesystem.mvcstandard.config;
+package io.github.aikusoni.ats.spring.mvcstandard.config;
 
-import io.github.aikusonitradesystem.core.config.MessageConfig;
-import io.github.aikusonitradesystem.mvcstandard.advice.CheckRoleTestController;
-import io.github.aikusonitradesystem.mvcstandard.advice.RestExceptionHandler;
+import io.github.aikusoni.ats.core.config.MessageConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.Locale;
 
-import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
+import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode.LOCALE_CONFIG_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,7 +42,7 @@ public class LocaleConfigTest {
                     )
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.data").value("OK"))
-                    .andExpect(jsonPath("$.message").value(m("mvc.locale_config_test", null, locale)));
+                    .andExpect(jsonPath("$.message").value(LOCALE_CONFIG_TEST.getMessage(locale)));
         }
     }
 }

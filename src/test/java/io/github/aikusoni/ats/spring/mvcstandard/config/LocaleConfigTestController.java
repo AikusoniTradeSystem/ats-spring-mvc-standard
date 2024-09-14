@@ -1,11 +1,12 @@
-package io.github.aikusonitradesystem.mvcstandard.config;
+package io.github.aikusoni.ats.spring.mvcstandard.config;
 
-import io.github.aikusonitradesystem.mvcstandard.model.view.ATSResponseBody;
+import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode;
+import io.github.aikusoni.ats.spring.mvcstandard.model.view.ATSResponseBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
+import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode.LOCALE_CONFIG_TEST;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -14,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class LocaleConfigTestController {
     @RequestMapping(method = {POST, GET}, path = "/test", produces = "application/json")
     public ResponseEntity<ATSResponseBody<String>> test() {
-        return ATSResponseBody.ok("OK", m("mvc.locale_config_test"))
+        return ATSResponseBody.ok("OK", LOCALE_CONFIG_TEST.getMessage())
                 .toResponseEntity();
     }
 }

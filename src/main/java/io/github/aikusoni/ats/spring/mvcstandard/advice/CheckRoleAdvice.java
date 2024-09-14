@@ -1,7 +1,7 @@
-package io.github.aikusonitradesystem.mvcstandard.advice;
+package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusonitradesystem.core.constants.ErrorCode;
-import io.github.aikusonitradesystem.core.exception.ATSRuntimeException;
+import io.github.aikusoni.ats.core.constants.ErrorCode;
+import io.github.aikusoni.ats.core.exception.ATSRuntimeException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -14,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
 
-import static io.github.aikusonitradesystem.core.utils.MessageUtils.m;
+import static io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcMessageCode.*;
 
 @Slf4j
 @Aspect
@@ -25,29 +25,29 @@ public class CheckRoleAdvice implements Ordered {
         return 1;
     }
 
-    @Before("@annotation(io.github.aikusonitradesystem.mvcstandard.advice.CheckRole)")
+    @Before("@annotation(io.github.aikusoni.ats.spring.mvcstandard.advice.CheckRole)")
     public void checkRole(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000001", m("mvc.no_request_attributes"));
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000001", NO_REQUEST_ATTRIBUTES);
         }
 
         HttpServletRequest request = attributes.getRequest();
         String roles = request.getHeader("X-Roles");
 
         if (roles == null) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000002", m("mvc.no_roles"));
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000002", NO_ROLES);
         }
 
         Method method = getMethodFromJoinPoint(joinPoint);
         CheckRole checkRole = method.getAnnotation(CheckRole.class);
         if (checkRole == null) {
-            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000004", m("mvc.failed_to_access_server_error"));
+            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000004", FAILED_TO_ACCESS_SERVER_ERROR);
         }
 
         String requiredRole = checkRole.value();
         if (!roles.contains(requiredRole)) {
-            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000003", m("mvc.no_permission"));
+            throw new ATSRuntimeException(ErrorCode.FORBIDDEN, "RCA-000003", NO_PERMISSION);
         }
     }
 
@@ -61,7 +61,7 @@ public class CheckRoleAdvice implements Ordered {
             Class<?>[] parameterTypes = methodSignature.getParameterTypes();
             method = targetClass.getMethod(methodSignature.getName(), parameterTypes);
         } catch (NoSuchMethodException e) {
-            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000005", m("mvc.failed_to_access_server_error"));
+            throw new ATSRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR, "RCA-000005", FAILED_TO_ACCESS_SERVER_ERROR);
         }
         return method;
     }
