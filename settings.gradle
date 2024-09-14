@@ -1,1 +1,3 @@
 rootProject.name = 'ats-spring-mvc-standard'
+include 'mvcstandard'
+

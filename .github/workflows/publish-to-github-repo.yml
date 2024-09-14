@@ -38,17 +38,17 @@ jobs:
           gradle-version: 8.5
 
       - name: Build Jar with Gradle
-        run: ./gradlew clean jar --info --stacktrace
+        run: ./gradlew :mvcstandard:clean :mvcstandard:jar --info --stacktrace
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_TAG: ${{ github.ref_name }}
 
-      - name: List build/libs contents
-        run: ls -la build/libs/
+      - name: List mvcstandard/build/libs contents
+        run: ls -la mvcstandard/build/libs/
 
       - name: Publish to GitHub Packages
-        run: ./gradlew publish
+        run: ./gradlew :mvcstandrad:publish
         env:
           GITHUB_USERNAME: ${{ secrets.PACKAGE_PUBLISH_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
