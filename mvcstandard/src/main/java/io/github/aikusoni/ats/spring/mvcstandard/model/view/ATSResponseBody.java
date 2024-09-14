@@ -2,9 +2,9 @@ package io.github.aikusoni.ats.spring.mvcstandard.model.view;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.aikusoni.ats.core.common.BaseErrorCode;
-import io.github.aikusoni.ats.core.constants.ErrorCode;
-import io.github.aikusoni.ats.core.constants.NoticeLevel;
+import io.github.aikusoni.ats.spring.core.common.BaseErrorCode;
+import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
+import io.github.aikusoni.ats.spring.core.constants.NoticeLevel;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpHeaders;

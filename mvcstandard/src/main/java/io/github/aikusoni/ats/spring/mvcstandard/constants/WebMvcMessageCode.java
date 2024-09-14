@@ -1,8 +1,8 @@
 package io.github.aikusoni.ats.spring.mvcstandard.constants;
 
-import io.github.aikusoni.ats.core.common.MessageCode;
+import io.github.aikusoni.ats.spring.core.common.MessageCode;
 
-import static io.github.aikusoni.ats.core.common.MessageCode.of;
+import static io.github.aikusoni.ats.spring.core.common.MessageCode.of;
 
 public interface WebMvcMessageCode {
     MessageCode LANGUAGE = of("mvc.language");

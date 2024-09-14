@@ -1,6 +1,6 @@
 package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusoni.ats.core.config.MessageConfig;
+import io.github.aikusoni.ats.spring.core.config.MessageConfig;
 import io.github.aikusoni.ats.spring.mvcstandard.config.LocaleConfig;
 import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcMessageCode;
 import io.github.aikusoni.ats.spring.mvcstandard.constants.WebMvcTestMessageCode;

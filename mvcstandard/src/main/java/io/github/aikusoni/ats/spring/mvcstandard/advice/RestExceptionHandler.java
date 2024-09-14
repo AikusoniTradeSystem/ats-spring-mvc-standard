@@ -1,8 +1,8 @@
 package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusoni.ats.core.constants.ErrorCode;
-import io.github.aikusoni.ats.core.exception.ATSException;
-import io.github.aikusoni.ats.core.exception.ATSRuntimeException;
+import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
+import io.github.aikusoni.ats.spring.core.exception.ATSException;
+import io.github.aikusoni.ats.spring.core.exception.ATSRuntimeException;
 import io.github.aikusoni.ats.spring.mvcstandard.model.view.ATSResponseBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

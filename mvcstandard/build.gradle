@@ -14,12 +14,12 @@ dependencies {
     constraints {
         implementation('io.github.aikusoni.ats.spring:core') {
             version {
-                require '[0.1.15,)'
+                require '[0.2.1,)'
             }
         }
     }
 
-    implementation 'io.github.aikusoni.ats.spring:core:0.1.15'
+    implementation 'io.github.aikusoni.ats.spring:core:0.2.1'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'

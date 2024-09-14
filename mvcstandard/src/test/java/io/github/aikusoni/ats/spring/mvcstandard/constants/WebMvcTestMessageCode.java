@@ -1,6 +1,6 @@
 package io.github.aikusoni.ats.spring.mvcstandard.constants;
 
-import io.github.aikusoni.ats.core.common.MessageCode;
+import io.github.aikusoni.ats.spring.core.common.MessageCode;
 
 public interface WebMvcTestMessageCode {
     MessageCode ADMIN_PERMISSION = MessageCode.of("mvc.admin_permission");

@@ -1,7 +1,7 @@
 package io.github.aikusoni.ats.spring.mvcstandard.advice;
 
-import io.github.aikusoni.ats.core.constants.ErrorCode;
-import io.github.aikusoni.ats.core.exception.ATSRuntimeException;
+import io.github.aikusoni.ats.spring.core.constants.ErrorCode;
+import io.github.aikusoni.ats.spring.core.exception.ATSRuntimeException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
